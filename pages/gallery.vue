@@ -5,8 +5,23 @@
     </div>
     <div class="section details">
       <!-- CONTENT START -->
-<h1 class="title">Gallery</h1>
-<!-- CONTENT END -->
+      <h1 class="title">Gallery</h1>
+      <!-- CONTENT END -->
+      <CoolLightBox 
+        :items="images" 
+        :index="index"
+        @close="index = null">
+      </CoolLightBox>
+
+      <div class="images-wrapper">
+        <div
+          class="image"
+          v-for="(image, imageIndex) in thumbs"
+          :key="imageIndex"
+          @click="index = imageIndex"
+          :style="{ backgroundImage: 'url(' + image + ')' }"
+        ></div>
+      </div>
     </div>
   </div>
 </template>
@@ -18,7 +33,6 @@ import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
   components: {
     CoolLightBox,
   },
-
   data: function () {
     return {
       images: [],
@@ -30,7 +44,6 @@ import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css'
     this.importAll(require.context('~/assets/gallery/', true, /\.(png|jpe?g|svg)$/));
     this.importThumbs(require.context('~/assets/thumbs/', true, /\.(png|jpe?g|svg)$/));
   },
-
   methods: {
     importAll(r) {
       console.log(r)
